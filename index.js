@@ -3,9 +3,15 @@ const http = require('http');
 
 // Create a server object
 const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello, World!\n');
+    if (req.method === 'GET' && req.url === '/') { // Added line
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Hello, World!\n');
+    } else {
+        res.statusCode = 404;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Not Found\n');
+    }
 });
 
 // Define the port number
@@ -15,4 +21,3 @@ const port = 3000;
 server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
-
